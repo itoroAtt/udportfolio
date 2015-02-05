@@ -33,5 +33,12 @@ My lines of code in main.js are as follows:
 1. 507 - 535
 1. 553
 1. 572
+### Resources:
+
+* Stackoverflow
+* https://marijnhaverbeke.nl/uglifyjs
+* Piazza forum
+* http://creativejs.com/resources/requestanimationframe/
+* General googling
 
 I hereby confirm that this submission is my work. I have cited above the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc. By including this in my email, I understand that I will be expected to explain my work in a video call with a Udacity coach before I can receive my verified certificate.
