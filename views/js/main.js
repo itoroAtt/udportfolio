@@ -378,7 +378,7 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = "images/pizza2.png";
+  pizzaImage.src = "images/pizza.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -450,7 +450,7 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   // Extrapolated static items from the for-loop below
-	var randomPizzas = document.querySelectorAll(".randomPizzaContainer")
+	var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
 	var dx = determineDx(randomPizzas[0], size);
 	var newwidth = (randomPizzas[0].offsetWidth + dx) + 'px';
 	var randomPizzaContainerCounter = randomPizzas.length;
@@ -495,16 +495,9 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   for (var i = numberOfEntries - 1; i > numberOfEntries - 11; i--) {
     sum = sum + times[i].duration;
   }
-  // For debug purposes only: console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
-// The following code for sliding background pizzas was pulled from Ilya's demo found at:
-// https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
-// Moves the sliding background pizzas based on scroll position
-// Extrapolated static items from the for-loop below
-	var items = document.querySelectorAll('.mover');
-		
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
 // requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
@@ -531,13 +524,17 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 		clearTimeout(id);
 	};
 }()); 
+// The following code for sliding background pizzas was pulled from Ilya's demo found at:
+// https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
+// Moves the sliding background pizzas based on scroll position
 function updatePositions() {
-	frame++;
-	window.performance.mark("mark_start_frame");
-  
+  frame++;
+  window.performance.mark("mark_start_frame");
+
+  var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-	var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -552,9 +549,20 @@ function updatePositions() {
   requestAnimationFrame(updatePositions);
 }
 
-
-
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+  var cols = 8;
+  var s = 256;
+  for (var i = 0; i < 35; i++) {
+    var elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizza.png";
+    elem.style.height = "100px";
+    elem.style.width = "73.333px";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    document.querySelector("#movingPizzas1").appendChild(elem);
+  }
   requestAnimationFrame(updatePositions);
 });
+
